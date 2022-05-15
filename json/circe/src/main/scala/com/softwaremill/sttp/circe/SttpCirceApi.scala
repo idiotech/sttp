@@ -11,7 +11,7 @@ trait SttpCirceApi {
       implicit encoder: Encoder[B],
       printer: Printer = Printer.noSpaces
   ): BodySerializer[B] =
-    b => StringBody(encoder(b).pretty(printer), Utf8, Some(MediaTypes.Json))
+    b => StringBody(encoder(b).print(printer), Utf8, Some(MediaTypes.Json))
 
   def asJson[B: Decoder: IsOption]: ResponseAs[Either[DeserializationError[io.circe.Error], B], Nothing] =
     asString(Utf8)
